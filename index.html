@@ -29,7 +29,8 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; word-break: keep-all; overflow-wrap: break-word; }
+  p, li { text-wrap: pretty; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--accent); color: var(--ink); }
@@ -199,6 +200,8 @@
   .shot .hot { position: absolute; top: 0; bottom: 0; width: 50%; cursor: pointer; }
   .shot .hot.l { left: 0; } .shot .hot.r { right: 0; }
   .shot .hot:hover { background: rgba(200, 255, 0, .12); }
+  .shot .go { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); white-space: nowrap; background: var(--ink); color: var(--accent); font-size: 12px; font-weight: 700; line-height: 1; padding: 8px 11px; border-radius: 999px; box-shadow: 0 2px 8px rgba(0,0,0,.3); transition: background .2s ease, color .2s ease; }
+  .shot .hot:hover .go { background: var(--accent); color: var(--ink); }
   .shot figcaption { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); font-size: 13px; }
   .shot figcaption > * { padding: 12px 14px; text-align: center; color: var(--muted); }
   .shot figcaption > * + * { border-left: 1px solid var(--line); }
@@ -266,7 +269,7 @@
   .mk-head h3 span { background: linear-gradient(transparent 58%, var(--accent) 58%); }
   .mk-head p { color: var(--muted); font-size: 16px; margin-top: 8px; }
   .mk-tag { justify-self: end; align-self: start; font: 500 12px/1 var(--mono); text-transform: uppercase; background: var(--ink); color: var(--accent); border-radius: 999px; padding: 8px 14px; }
-  .mk-sub { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: clamp(32px, 4vw, 48px) 0 14px; }
+  .mk-sub { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0; color: var(--muted); margin: clamp(32px, 4vw, 48px) 0 14px; }
   .mk-funnel { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
   .mk-funnel div { position: relative; background: #F4F4EF; border-radius: 12px; padding: 18px; display: grid; gap: 12px; }
   .mk-funnel small { font-size: 13px; color: var(--muted); line-height: 1.5; }
@@ -289,7 +292,9 @@
   .mk-strip { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; scrollbar-width: thin; scrollbar-color: var(--ink) transparent; }
   .mk-strip figure { flex: 0 0 clamp(240px, 30vw, 400px); scroll-snap-align: start; border-radius: 8px; overflow: hidden; cursor: zoom-in; background: #fff; border: 1px solid var(--line); }
   .mk-strip img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-  .mk-deck-ctrl { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+  .mk-deck-ctrl { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 10px; }
+  .mk-hint { background: var(--ink); color: var(--accent); font-size: 14px; font-weight: 700; line-height: 1.35; letter-spacing: -.01em; padding: 9px 14px; border-radius: 6px; }
+  .mk-deck-ctrl > span:last-child { flex: none; }
   .mk-deck-ctrl .pill { font-size: 12px; padding: 6px 14px; }
   @media (max-width: 900px) {
     .mk-head { grid-template-columns: 1fr; } .mk-tag { justify-self: start; }
@@ -423,7 +428,7 @@
   .fb-base.r::after, .fb-face.front::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to right, rgba(0,0,0,.32), rgba(255,255,255,.08) 6%, transparent 16%); }
   .fb-face::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to right, rgba(0,0,0,.35), transparent); opacity: 0; transition: opacity .55s ease; }
   .fb-leaf.turning .fb-face::before { opacity: 1; }
-  .fb-hint { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); text-align: center; }
+  .fb-hint { font-family: var(--sans); font-size: 14px; font-weight: 600; letter-spacing: -.01em; color: var(--muted); text-align: center; }
   .fb-ctrl { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 8px; }
   .fb-ctrl .pill { font-size: 12px; padding: 6px 14px; }
   .fb-ctrl .pill:disabled { opacity: .3; cursor: default; background: none; color: inherit; border-color: currentColor; }
@@ -441,11 +446,11 @@
   .cal-block .point { display: inline-block; margin-top: 18px; font-weight: 700; background: var(--accent); padding: 4px 10px; }
   .cal-block .kind { color: var(--muted); }
   .cal-wrap { display: grid; gap: 18px; justify-items: center; }
-  .cal { position: relative; width: 100%; max-width: 420px; aspect-ratio: 900 / 1290; perspective: 1600px; cursor: pointer; outline: none; touch-action: pan-y; margin-top: 18px; }
+  .cal { position: relative; width: 100%; max-width: 420px; aspect-ratio: 900 / 1290; perspective: 1800px; perspective-origin: 50% 0; cursor: pointer; outline: none; touch-action: pan-y; margin-top: 18px; }
   .cal::before { content: ''; position: absolute; left: 4%; right: 4%; bottom: -14px; height: 18px; background: radial-gradient(ellipse at center, rgba(0,0,0,.35), transparent 70%); filter: blur(6px); }
   .cal-stack { position: absolute; inset: 0; box-shadow: 0 2px 0 #e2e2dc, 0 4px 0 #fafaf8, 0 6px 0 #dadad4, 0 8px 0 #f4f4f0, 0 10px 0 #d2d2cc; background: #fff; }
-  .cal-page { position: absolute; inset: 0; background: #fff center / cover no-repeat; transform-origin: 50% 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform .85s cubic-bezier(.6,.05,.3,1), opacity .85s ease; }
-  .cal-page.up { transform: rotateX(-172deg); opacity: 0; pointer-events: none; }
+  .cal-page { position: absolute; inset: 0; background: #fff center / cover no-repeat; transform-origin: 50% 0; }
+  .cal-page.up { visibility: hidden; pointer-events: none; }
   .cal-page::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.18), transparent 8%); pointer-events: none; }
   .cal-rings { position: absolute; left: 5%; right: 5%; top: -16px; height: 30px; z-index: 50; pointer-events: none; display: flex; justify-content: space-between; }
   .cal-rings i { width: 7px; height: 30px; border: 2px solid #2b2b2b; border-radius: 4px; background: linear-gradient(90deg, #555, #bbb 45%, #444); box-shadow: 0 2px 3px rgba(0,0,0,.25); }
@@ -686,7 +691,7 @@
       <div class="mk-deck">
         <div class="mk-strip" id="mkStrip"></div>
         <div class="mk-deck-ctrl">
-          <span class="label">옆으로 넘기거나 눌러서 크게 볼 수 있어요</span>
+          <span class="mk-hint">옆으로 넘기거나 눌러서 크게 볼 수 있어요</span>
           <span><button type="button" class="pill" id="mkPrev">←</button> <button type="button" class="pill" id="mkNext">→</button></span>
         </div>
       </div>
@@ -1002,7 +1007,7 @@
     const src = `assets/img/${p.img}.jpg`;
     return `<figure class="shot rv">
       <div class="frame"${linked ? '' : ' data-zoom'}><img src="${src}" alt="${p.name} ${p.cap}" loading="lazy">
-        ${labels.map((l, k) => urls[k] ? `<a class="hot ${k ? 'r' : 'l'}" ${ext(urls[k])} aria-label="${l} 보러 가기"></a>` : '').join('')}
+        ${labels.map((l, k) => urls[k] ? `<a class="hot ${k ? 'r' : 'l'}" ${ext(urls[k])} aria-label="${l} 보러 가기"><span class="go">클릭하면 콘텐츠로 이동 ↗</span></a>` : '').join('')}
         ${linked ? `<button type="button" class="zoom" data-zoom-src="${src}" aria-label="이미지 크게 보기">⤢</button>` : ''}
       </div>
       <figcaption>${labels.map((l, k) => urls[k] ? `<a ${ext(urls[k])}>${l} ↗</a>` : `<span>${l}</span>`).join('')}</figcaption>
@@ -1187,7 +1192,8 @@
 
   // ---------- TRAVEL wall calendar ----------
   // 26 sheets: cover, then photo + dates for each month, then the 2027 back cover.
-  // Sheets before the current one are flipped up over the binding.
+  // A sheet turns like a wall calendar: its bottom edge swings toward the viewer and up over
+  // the rings, showing the blank back of the paper once it passes vertical.
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const CAL_N = 26;
   const calName = i => i === 0 ? 'Cover' : i === CAL_N - 1 ? '2027' : `${MONTHS[Math.ceil(i / 2) - 1]} · ${i % 2 ? 'Photo' : 'Dates'}`;
@@ -1207,10 +1213,39 @@
   const chips = [['Cover', 0], ...MONTHS.map((m, k) => [String(k + 1), 2 * k + 1]), ['2027', CAL_N - 1]];
   calMonths.innerHTML = chips.map(([t]) => `<button type="button">${t}</button>`).join('');
   let calAt = 0;
+  const calStill = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const paper = c => `0 22px 46px rgba(0,0,0,.26), inset 0 0 0 2000px ${c}`;
+  const CAL_TURN = [
+    { offset: 0, transform: 'rotateX(0deg)', opacity: 1, boxShadow: '0 0 0 rgba(0,0,0,0), inset 0 0 0 2000px rgba(0,0,0,0)', easing: 'cubic-bezier(.45,0,.8,.7)' },
+    { offset: .46, transform: 'rotateX(89.9deg)', opacity: 1, boxShadow: paper('rgba(0,0,0,.22)'), easing: 'step-end' },
+    { offset: .461, transform: 'rotateX(90.1deg)', opacity: 1, boxShadow: paper('#DEDCD3'), easing: 'cubic-bezier(.2,.6,.4,1)' },
+    { offset: .82, transform: 'rotateX(150deg)', opacity: 1, boxShadow: paper('#F6F5EF') },
+    { offset: 1, transform: 'rotateX(172deg)', opacity: 0, boxShadow: paper('#F6F5EF') }
+  ];
+  const calTurn = (s, up, delay) => {
+    s._up = up;
+    if (s._turn) { s._turn.reverse(); return; }   // clicked back mid-turn: swing the same sheet back
+    if (calStill) { s.classList.toggle('up', up); return; }
+    s.classList.remove('up');
+    s._turn = s.animate(CAL_TURN, { duration: 950, delay, fill: 'backwards', direction: up ? 'normal' : 'reverse' });
+    s._turn.onfinish = () => { s._turn = null; s.classList.toggle('up', s._up); };
+  };
   const calGo = to => {
+    const from = calAt;
     calAt = (to + CAL_N) % CAL_N;
     for (let i = calAt; i <= calAt + 2; i++) calLoad(i);
-    sheets.forEach((s, i) => s.classList.toggle('up', i < calAt));
+    const forward = calAt > from;
+    const changed = sheets.filter((s, i) => !!s._up !== i < calAt);
+    if (!forward) changed.reverse();
+    // long jumps only animate a few sheets; the rest change silently underneath
+    const turning = changed.length <= 4 ? changed : [changed[0], ...changed.slice(-3)];
+    changed.filter(s => !turning.includes(s)).forEach(s => {
+      if (s._turn) { s._turn.cancel(); s._turn = null; }
+      s._up = forward;
+      if (forward) s.classList.add('up');
+    });
+    turning.forEach((s, k) => { calLoad(sheets.indexOf(s)); calTurn(s, forward, k * 110); });
+    if (!forward) setTimeout(() => changed.forEach(s => { if (!s._up && !s._turn) s.classList.remove('up'); }), 1500);
     document.getElementById('calNow').textContent = calName(calAt);
     const chip = calAt === 0 ? 0 : calAt === CAL_N - 1 ? chips.length - 1 : Math.ceil(calAt / 2);
     [...calMonths.children].forEach((b, i) => b.classList.toggle('on', i === chip));
