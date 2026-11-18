@@ -1339,8 +1339,30 @@
       how: '계원예술대학교, 청강문화산업대학교 등에서 셀프 스튜디오를 운영 중이며, 비교적 적은 공간으로도 구축할 수 있습니다.' }
   ];
 
+  const fuStrip = document.getElementById('fuStrip');
+  fuStrip.innerHTML = `<article class="fu-card">
+      <span class="no">Overview</span>
+      <h5>학생이 중심이 되는 서일의 100년</h5>
+      <dl>
+        <div><dt>문제 인식</dt><dd>다양한 발전을 이뤄 왔지만, 학생 중심 교육 환경과 글로벌 역량 강화에는 개선의 여지가 있습니다.</dd></div>
+        <div><dt>제안 방향</dt><dd><ul><li>학생 중심 스마트 캠퍼스</li><li>교육 자율성 확대</li><li>디지털 학습 환경 개선</li><li>글로벌 인재 양성</li></ul></dd></div>
+      </dl>
+    </article>` + FUTURE.map((f, i) => `<article class="fu-card">
+      <span class="no">${String(i + 1).padStart(2, '0')} · <em>${f.tag}</em></span>
+      <h5>${f.name}</h5>
+      <dl>
+        <div><dt>제안 배경</dt><dd>${f.why}</dd></div>
+        <div><dt>제안 내용</dt><dd>${f.what}</dd></div>
+        <div><dt>기대 효과</dt><dd>${f.effect.join(' · ')}</dd></div>
+        <div><dt>실현 가능성</dt><dd>${f.how}</dd></div>
+      </dl>
+    </article>`).join('');
+  const fuStep = dir => fuStrip.scrollBy({ left: dir * (fuStrip.firstElementChild.offsetWidth + 12), behavior: 'smooth' });
+  document.getElementById('fuPrev').addEventListener('click', () => fuStep(-1));
+  document.getElementById('fuNext').addEventListener('click', () => fuStep(1));
+
   // lightbox
-  const lb =document.getElementById('lb'), lbImg = lb.querySelector('img');
+  const lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
   document.addEventListener('click', e => {
     const btn = e.target.closest('[data-zoom-src]');
     const z = e.target.closest('[data-zoom]');
