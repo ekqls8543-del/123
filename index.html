@@ -313,21 +313,29 @@
   .awards > .award.lead { grid-column: span 2; }
   .awards > .award:not(.lead) .ph { aspect-ratio: 21 / 9; }
   /* contest proposal, shown beside its award card */
-  .fu { grid-column: span 4; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+  .fu { grid-column: span 4; min-width: 0; display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 90px; }
   .fu-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
   .fu-head h4 { font-size: 20px; font-weight: 800; letter-spacing: -.02em; }
-  .fu-head span { font-size: 14px; color: var(--muted); }
-  .fu-strip { flex: 1; display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; scrollbar-width: thin; scrollbar-color: var(--ink) transparent; }
-  .fu-card { flex: 0 0 clamp(250px, 23vw, 310px); scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 6px; padding: 20px; }
-  .fu-card .no { font: 500 12px/1.4 var(--mono); color: var(--muted); }
-  .fu-card .no em { font-family: var(--sans); font-style: normal; }
-  .fu-card h5 { font-size: 18px; font-weight: 800; letter-spacing: -.02em; line-height: 1.3; }
-  .fu-card dl { display: grid; gap: 10px; }
-  .fu-card dt { font-size: 12px; font-weight: 700; color: var(--muted); }
-  .fu-card dd { font-size: 14px; line-height: 1.55; text-wrap: pretty; }
-  .fu-card ul { list-style: none; display: grid; gap: 6px; font-size: 14px; }
-  .fu-card li::before { content: '→ '; color: var(--muted); }
-  .fu-card p { font-size: 14px; line-height: 1.55; }
+  .fu-head span { font-size: 15px; color: var(--muted); }
+  .fu-body { flex: 1; display: grid; grid-template-columns: minmax(170px, 210px) minmax(0, 1fr); gap: 12px; }
+  .fu-tabs { display: flex; flex-direction: column; gap: 6px; }
+  .fu-tabs button { flex: 1; display: grid; grid-template-columns: 24px 1fr; gap: 6px; align-items: center; width: 100%; text-align: left; font: inherit; color: var(--fg); background: var(--bg-2); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; cursor: pointer; transition: border-color .2s ease; }
+  .fu-tabs button:hover { border-color: var(--ink); }
+  .fu-tabs button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .fu-tabs i { font: 500 12px/1.4 var(--mono); color: var(--muted); }
+  .fu-tabs b { font-size: 14px; font-weight: 700; line-height: 1.35; }
+  .fu-tabs button[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: #F2F2EE; }
+  .fu-tabs button[aria-selected="true"] i { color: var(--accent); }
+  .fu-panel { min-width: 0; background: var(--bg-2); border: 1px solid var(--line); border-radius: 6px; padding: clamp(20px, 2.2vw, 30px); outline: none; }
+  .fu-panel .tag { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .fu-panel h5 { font-size: clamp(22px, 2vw, 28px); font-weight: 800; letter-spacing: -.03em; line-height: 1.25; margin: 4px 0 10px; }
+  .fu-panel > div { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 14px; padding: 13px 0; border-top: 1px solid var(--line); }
+  .fu-panel dt, .fu-panel .k { font-size: 13px; font-weight: 700; color: var(--muted); padding-top: 3px; }
+  .fu-panel p, .fu-panel li { font-size: 16px; line-height: 1.6; }
+  .fu-panel p b { font-weight: 700; background: linear-gradient(transparent 62%, var(--accent) 62%); }
+  .fu-panel ul { list-style: none; display: grid; gap: 3px; }
+  .fu-panel li::before { content: '→ '; color: var(--muted); }
+  @media (max-width: 1180px) { .fu-panel > div { grid-template-columns: 1fr; gap: 4px; } }
   .award { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; transition: border-color .3s ease, transform .3s ease; }
   .award:hover { border-color: var(--accent); transform: translateY(-4px); }
   .award .ph { aspect-ratio: 16 / 9; background: var(--bg-2); overflow: hidden; }
@@ -365,7 +373,9 @@
     .awards, .leader { grid-template-columns: 1fr; } .mt .body { grid-template-columns: 1fr; }
     .awards > .award, .awards > .award.lead, .fu { grid-column: auto; }
     .awards > .award:not(.lead) .ph { aspect-ratio: 16 / 9; }
-    .fu-card { flex-basis: min(78vw, 300px); }
+    .fu-body { grid-template-columns: 1fr; }
+    .fu-tabs { display: grid; grid-template-columns: 1fr 1fr; }
+    .fu-tabs button:first-child { grid-column: 1 / -1; }
   }
 
   /* ---------- design work ---------- */
@@ -805,10 +815,9 @@
       </article>
       <div class="fu rv" id="future">
         <div class="fu-head"><h4>수상 기획안</h4><span>서일의 다음 100년을 위한 6가지 제안</span></div>
-        <div class="fu-strip" id="fuStrip" tabindex="0" aria-label="공모전 기획안 카드"></div>
-        <div class="mk-deck-ctrl">
-          <span class="mk-hint">옆으로 넘겨서 볼 수 있어요</span>
-          <span><button type="button" class="pill" id="fuPrev" aria-label="이전 제안">←</button> <button type="button" class="pill" id="fuNext" aria-label="다음 제안">→</button></span>
+        <div class="fu-body">
+          <div class="fu-tabs" id="fuTabs" role="tablist" aria-label="기획안 항목"></div>
+          <div class="fu-panel" id="fuPanel" role="tabpanel" tabindex="0"></div>
         </div>
       </div>
       <article class="award rv" data-link="booth">
@@ -1305,7 +1314,7 @@
   document.getElementById('mkPrev').addEventListener('click', () => mkStep(-1));
   document.getElementById('mkNext').addEventListener('click', () => mkStep(1));
 
-  // contest proposal: overview card, then one card per idea
+  // contest proposal: overview tab, then one tab per idea
   const FUTURE = [
     { name: '전공 수강신청 자율화', tag: '교육 자율성',
       why: '학과가 전공 시간표를 일괄 편성해, 특정 교수님의 수업을 반복해서 듣거나 학습 스타일에 맞지 않는 강의도 필수로 수강해야 합니다.',
@@ -1338,28 +1347,36 @@
       effect: ['콘텐츠 제작 능력 향상', '개인·팀 프로젝트 질 향상', '콘텐츠 제작 기반 마련', '1인 미디어 교육 활성화'],
       how: '계원예술대학교, 청강문화산업대학교 등에서 셀프 스튜디오를 운영 중이며, 비교적 적은 공간으로도 구축할 수 있습니다.' }
   ];
-
-  const fuStrip = document.getElementById('fuStrip');
-  fuStrip.innerHTML = `<article class="fu-card">
-      <span class="no">Overview</span>
-      <h5>학생이 중심이 되는 서일의 100년</h5>
-      <dl>
-        <div><dt>문제 인식</dt><dd>다양한 발전을 이뤄 왔지만, 학생 중심 교육 환경과 글로벌 역량 강화에는 개선의 여지가 있습니다.</dd></div>
-        <div><dt>제안 방향</dt><dd><ul><li>학생 중심 스마트 캠퍼스</li><li>교육 자율성 확대</li><li>디지털 학습 환경 개선</li><li>글로벌 인재 양성</li></ul></dd></div>
-      </dl>
-    </article>` + FUTURE.map((f, i) => `<article class="fu-card">
-      <span class="no">${String(i + 1).padStart(2, '0')} · <em>${f.tag}</em></span>
-      <h5>${f.name}</h5>
-      <dl>
-        <div><dt>제안 배경</dt><dd>${f.why}</dd></div>
-        <div><dt>제안 내용</dt><dd>${f.what}</dd></div>
-        <div><dt>기대 효과</dt><dd>${f.effect.join(' · ')}</dd></div>
-        <div><dt>실현 가능성</dt><dd>${f.how}</dd></div>
-      </dl>
-    </article>`).join('');
-  const fuStep = dir => fuStrip.scrollBy({ left: dir * (fuStrip.firstElementChild.offsetWidth + 12), behavior: 'smooth' });
-  document.getElementById('fuPrev').addEventListener('click', () => fuStep(-1));
-  document.getElementById('fuNext').addEventListener('click', () => fuStep(1));
+  const fuRow = (k, v) => `<div><span class="k">${k}</span>${v}</div>`;
+  const fuList = items => `<ul>${items.map(e => `<li>${e}</li>`).join('')}</ul>`;
+  const fuPages = [
+    { label: '개요', no: '—', html: `<span class="tag">SU 더퓨처 공모전</span><h5>학생이 중심이 되는 서일의 100년</h5>
+      ${fuRow('문제 인식', '<p>다양한 발전을 이뤄 왔지만, 학생 중심 교육 환경과 글로벌 역량 강화에는 개선의 여지가 있습니다.</p>')}
+      ${fuRow('제안 방향', fuList(['학생 중심 스마트 캠퍼스', '교육 자율성 확대', '디지털 학습 환경 개선', '글로벌 인재 양성']))}
+      ${fuRow('결론', '<p>아이디어에 그치지 않고 실제 대학 발전 계획에 반영될 수 있는 실현 가능한 방안으로 구성했습니다.</p>')}` },
+    ...FUTURE.map((f, i) => ({ label: f.name, no: String(i + 1).padStart(2, '0'), html: `<span class="tag">${f.tag}</span><h5>${f.name}</h5>
+      ${fuRow('제안 배경', `<p>${f.why}</p>`)}
+      ${fuRow('제안 내용', `<p>${f.what}</p>`)}
+      ${fuRow('기대 효과', fuList(f.effect))}
+      ${fuRow('실현 가능성', `<p>${f.how}</p>`)}` }))
+  ];
+  const fuTabs = document.getElementById('fuTabs'), fuPanel = document.getElementById('fuPanel');
+  fuTabs.innerHTML = fuPages.map((p, i) => `<button type="button" role="tab" id="fuTab${i}" aria-controls="fuPanel"><i>${p.no}</i><b>${p.label}</b></button>`).join('');
+  const fuButtons = [...fuTabs.children];
+  const fuShow = i => {
+    fuButtons.forEach((b, k) => { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
+    fuPanel.setAttribute('aria-labelledby', `fuTab${i}`);
+    fuPanel.innerHTML = fuPages[i].html;
+  };
+  fuShow(0);
+  fuTabs.addEventListener('click', e => { const b = e.target.closest('button'); if (b) fuShow(fuButtons.indexOf(b)); });
+  fuTabs.addEventListener('keydown', e => {
+    const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+    if (!step) return;
+    e.preventDefault();
+    const next = (fuButtons.indexOf(document.activeElement) + step + fuPages.length) % fuPages.length;
+    fuShow(next); fuButtons[next].focus();
+  });
 
   // lightbox
   const lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
