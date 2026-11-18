@@ -126,7 +126,9 @@
   .profile dt { font-family: var(--mono); font-size: 12px; text-transform: uppercase; color: var(--ink-muted); padding-top: 2px; }
   .about-lead { font-size: clamp(26px, 3.2vw, 46px); font-weight: 800; letter-spacing: -.03em; line-height: 1.25; }
   .about-lead em { font-style: normal; background: linear-gradient(transparent 62%, var(--accent) 62%); }
-  .about-story { margin-top: 24px; font-size: 18px; color: #2b2b28; max-width: 620px; }
+  .about-story { margin-top: 28px; font-size: 18px; line-height: 1.65; color: #2b2b28; max-width: 620px; display: grid; gap: 14px; }
+  .about-story span { display: block; }
+  .about-story .end { font-weight: 700; color: var(--ink); }
   .rows { margin-top: clamp(40px, 6vw, 72px); border-top: 1px solid var(--ink); }
   .row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--ink-line); }
   .row h4 { font-family: var(--mono); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; padding-top: 4px; }
@@ -135,8 +137,10 @@
   .row li { display: grid; grid-template-columns: 170px 1fr; gap: 16px; font-size: 15px; }
   .row li time { font-family: var(--mono); font-size: 13px; color: var(--ink-muted); padding-top: 2px; }
   .row li b { font-weight: 700; }
-  .skills { display: flex; gap: 8px; flex-wrap: wrap; }
-  .skills span { font-family: var(--mono); font-size: 13px; border: 1px solid var(--ink); border-radius: 999px; padding: 4px 14px; }
+  .row.center { align-items: center; }
+  .row.center h4 { padding-top: 0; }
+  .skills { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .skills span { display: inline-flex; align-items: center; justify-content: center; height: 32px; font-family: var(--mono); font-size: 13px; line-height: 1; border: 1px solid var(--ink); border-radius: 999px; padding: 0 14px; }
   @media (max-width: 900px) {
     .about-grid { grid-template-columns: 1fr; }
     .profile { position: static; max-width: 360px; }
@@ -339,6 +343,41 @@
   .role h4 { font-size: 20px; font-weight: 800; letter-spacing: -.02em; }
   .role p { font-size: 14px; color: var(--muted); }
   @media (max-width: 900px) { .awards, .leader { grid-template-columns: 1fr; } .mt .body { grid-template-columns: 1fr; } }
+
+  /* contest proposal: SU The Future */
+  .fu { --fg: #F2F2EE; --muted: #A5A59E; --line: rgba(255,255,255,.16); --hi: var(--accent); background: var(--ink); color: var(--fg); border-radius: 8px; padding: clamp(24px, 4.5vw, 60px); margin-top: clamp(40px, 6vw, 72px); scroll-margin-top: 90px; }
+  .fu-head { display: grid; gap: 14px; padding-bottom: clamp(24px, 3vw, 36px); border-bottom: 1px solid var(--line); }
+  .fu-head .badge { justify-self: start; }
+  .fu-head h3 { font-size: clamp(32px, 4.8vw, 72px); font-weight: 800; letter-spacing: -.04em; line-height: 1.12; }
+  .fu-head h3 em { font-style: normal; color: var(--accent); }
+  .fu-head p { color: var(--muted); font-size: 16px; }
+  .fu-brief { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 4vw, 56px); padding: clamp(24px, 3vw, 36px) 0; }
+  .fu-t { display: block; font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+  .fu-brief p { font-size: 17px; line-height: 1.6; }
+  .fu-dirs { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+  .fu-dirs li { border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 14px; font-weight: 600; line-height: 1.2; }
+  .fu-body { display: grid; grid-template-columns: minmax(250px, 340px) 1fr; gap: clamp(16px, 3vw, 40px); align-items: start; }
+  .fu-tabs { display: grid; gap: 6px; }
+  .fu-tabs button { display: grid; grid-template-columns: 30px 1fr; gap: 2px 8px; width: 100%; text-align: left; font: inherit; color: var(--fg); background: rgba(255,255,255,.05); border: 1px solid transparent; border-radius: 8px; padding: 13px 14px; cursor: pointer; transition: background .2s ease, border-color .2s ease; }
+  .fu-tabs button:hover { border-color: var(--accent); }
+  .fu-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .fu-tabs i { grid-row: span 2; font: 500 13px/1.5 var(--mono); color: var(--accent); }
+  .fu-tabs b { font-size: 15px; font-weight: 700; line-height: 1.35; }
+  .fu-tabs small { font-size: 12px; line-height: 1.3; color: var(--muted); }
+  .fu-tabs button[aria-selected="true"] { background: var(--accent); color: var(--ink); }
+  .fu-tabs button[aria-selected="true"] i, .fu-tabs button[aria-selected="true"] small { color: var(--ink); }
+  .fu-panel { background: #171717; border-radius: 8px; padding: clamp(20px, 3vw, 36px); outline: none; }
+  .fu-panel h4 { font-size: clamp(23px, 2.4vw, 34px); font-weight: 800; letter-spacing: -.03em; line-height: 1.25; margin-bottom: 8px; }
+  .fu-panel > div { display: grid; grid-template-columns: 96px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
+  .fu-panel > h4 + div { border-top: 0; }
+  .fu-panel .fu-t { margin: 3px 0 0; }
+  .fu-panel p, .fu-panel li { font-size: 16px; line-height: 1.6; }
+  .fu-panel p b { color: var(--accent); font-weight: 700; }
+  .fu-panel ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
+  .fu-panel li::before { content: '→ '; color: var(--accent); }
+  .fu-end { margin-top: clamp(24px, 3vw, 36px); padding-top: 22px; border-top: 1px solid var(--line); font-size: clamp(17px, 1.6vw, 21px); font-weight: 700; line-height: 1.5; }
+  @media (max-width: 900px) { .fu-brief, .fu-body { grid-template-columns: 1fr; } .fu-tabs { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .fu-tabs { grid-template-columns: 1fr; } .fu-panel > div { grid-template-columns: 1fr; gap: 6px; } .fu-panel ul { grid-template-columns: 1fr; } }
 
   /* ---------- design work ---------- */
   .bridge { border-top: 1px solid var(--line); margin-bottom: clamp(48px, 7vw, 96px); }
@@ -573,7 +612,11 @@
 
       <div>
         <p class="about-lead rv">경험을 전략으로,<br>실무에서 시작한 마케터<br><em>서다빈</em>입니다.</p>
-        <p class="about-story rv">20살에 광고대행사에 입사해 5년간 AE로 일했습니다. 남들이 공부할 때 실무를 배웠고, 실무를 알기에 더 깊이 공부하고 싶었습니다. 그 선택이 저를 더 단단한 마케터로 만들었습니다.</p>
+        <p class="about-story rv">
+          <span>20살에 광고대행사에 입사해<br>5년간 AE로 일했습니다.</span>
+          <span>남들이 공부할 때 실무를 배웠고,<br>실무를 알기에 더 깊이 공부하고 싶었습니다.</span>
+          <span class="end">그 선택이 저를 더 단단한 마케터로 만들었습니다.</span>
+        </p>
 
         <div class="rows">
           <div class="row rv">
@@ -603,7 +646,7 @@
               <li><time>2024.12</time><span>서일대학교 초지일관 <b>장학금</b></span></li>
             </ul>
           </div>
-          <div class="row rv">
+          <div class="row center rv">
             <h4>Skills<small>스킬</small></h4>
             <div class="skills"><span>Illustrator</span><span>Photoshop</span><span>InDesign</span><span>Premiere Pro</span></div>
           </div>
@@ -769,6 +812,7 @@
           <h4>개교 50주년 더퓨처 공모전</h4>
           <p>학교 발전 방향 기획안</p>
           <ul><li>학교 종합정보시스템 모바일화 기획</li><li>미디어존 등 스튜디오 설치 기획</li></ul>
+          <a class="pill go" href="#future">기획안 자세히 보기 ↓</a>
         </div>
       </article>
       <article class="award rv" data-link="booth">
@@ -817,6 +861,29 @@
         </article>
       </div>
     </div>
+
+    <article class="fu rv" id="future">
+      <header class="fu-head">
+        <span class="badge">우수상 · 2025.06</span>
+        <h3>서일의 다음 100년을 위한<br><em>6가지 제안</em></h3>
+        <p>개교 50주년 SU 더퓨처 공모전 · 서일대학교의 미래를 위한 아이디어 제안</p>
+      </header>
+      <div class="fu-brief">
+        <div>
+          <span class="fu-t">문제 인식</span>
+          <p>서일대학교는 다양한 발전을 이뤄 왔지만, 학생 중심 교육 환경과 글로벌 역량 강화 측면에는 개선의 여지가 있습니다.</p>
+        </div>
+        <div>
+          <span class="fu-t">제안 방향</span>
+          <ul class="fu-dirs"><li>학생 중심 스마트 캠퍼스</li><li>교육 자율성 확대</li><li>디지털 학습 환경 개선</li><li>글로벌 인재 양성</li></ul>
+        </div>
+      </div>
+      <div class="fu-body">
+        <div class="fu-tabs" id="fuTabs" role="tablist" aria-label="6가지 제안"></div>
+        <div class="fu-panel" id="fuPanel" role="tabpanel" tabindex="0"></div>
+      </div>
+      <p class="fu-end">단순한 아이디어에 그치지 않고, 학생이 중심이 되는 서일의 100년을 설계하는 밑거름이 되도록 실현 가능한 방안으로 구성했습니다.</p>
+    </article>
   </div>
 </section>
 
@@ -1265,8 +1332,64 @@
   document.getElementById('mkPrev').addEventListener('click', () => mkStep(-1));
   document.getElementById('mkNext').addEventListener('click', () => mkStep(1));
 
+  // contest proposal: one tab per idea
+  const FUTURE = [
+    { name: '전공 수강신청 자율화', tag: '교육 자율성',
+      why: '학과가 전공 시간표를 일괄 편성해, 특정 교수님의 수업을 반복해서 듣거나 학습 스타일에 맞지 않는 강의도 필수로 수강해야 합니다.',
+      what: '같은 전공 과목을 여러 교수님이 운영하거나 선택 가능한 수업을 구성해, <b>전공도 교양처럼 자율 수강신청</b>이 가능하도록 제도를 개선합니다.',
+      effect: ['학습 만족도 상승', '중복 커리큘럼 최소화', '자기주도 학습 역량 강화', '원하는 전공 수업 선택'],
+      how: '국내 다수 4년제 대학과 인덕대학교 등 일부 전문대에서 유사한 체계를 운영 중이며, 기존 학사 시스템 개편으로 실현할 수 있습니다.' },
+    { name: '종합정보시스템 모바일 앱', tag: '스마트 캠퍼스',
+      why: '학사정보, 성적 조회, 시간표 확인이 웹으로만 가능해 모바일에 익숙한 학생들이 불편하고, 실시간 정보 전달에도 한계가 있습니다.',
+      what: '수강신청, 시간표, 공지, 성적, 장학금, 민원, 상담 예약을 <b>하나의 앱으로 통합</b>하고 실시간 알림을 제공합니다.',
+      effect: ['모바일 접근성 향상', '공지 누락 방지', '행정 민원 감소', '학교-학생 소통 경로 확대'],
+      how: '연성대학교(Y-App), 수원여자대학교(스마트캠퍼스) 등이 자체 앱을 운영 중이며, 외주 또는 정보전산팀 개발로 추진할 수 있습니다.' },
+    { name: '학과 과방 설치', tag: '학생 중심 캠퍼스',
+      why: '학과별 과방이 없어 학생 간 교류가 제한되고, 선후배 네트워크와 공동체 활동도 활발히 이루어지지 못합니다.',
+      what: '소규모 과방이나 공동 커뮤니티 공간에 테이블, 사물함, 프린터, 공용 PC를 갖춰 <b>행사·회의·자율학습 공간</b>으로 활용합니다.',
+      effect: ['선후배·동기 교류 증대', '학과 공동체 의식 강화', '자치 활동 거점 마련', '졸업생·진로 정보 공유'],
+      how: '유휴 교실 활용, 리모델링, 공용 멀티룸 전환으로 구축할 수 있으며 서울예술대학교, 청강문화산업대학교 등 유사 사례가 있습니다.' },
+    { name: '열람실 콘센트 설치', tag: '디지털 학습 환경',
+      why: '열람실에 노트북과 태블릿을 쓸 수 있는 콘센트가 부족해 디지털 기반 자기주도 학습이 어렵습니다.',
+      what: '<b>모든 좌석에 콘센트를 설치</b>하거나 멀티탭 책상 구역을 확대해 디지털 기기 사용 환경을 개선합니다.',
+      effect: ['학습 효율 증대', '전자책·온라인 강의 활용', '시험 기간 자습 만족도 향상'],
+      how: '시설팀과 협업해 단계적으로 구현할 수 있고, 비교적 낮은 예산으로 추진할 수 있습니다.' },
+    { name: '교환학생 프로그램 확대', tag: '글로벌 인재',
+      why: '해외 교류와 교환학생 프로그램이 제한적이라 학생들이 글로벌 환경을 경험할 기회가 부족합니다.',
+      what: '자매결연 대학 확대, 온라인 공동 수업, 단기 해외 연수, 국제 인턴십 연계로 <b>교환 프로그램을 다각화</b>합니다.',
+      effect: ['글로벌 인재 양성', '취업 경쟁력 강화', '문화 다양성 체험', '대학 브랜드 이미지 제고'],
+      how: '국제교류 조직의 운영을 확장하고, 한-아세안 청년교류 프로그램 같은 정부 지원 사업을 활용할 수 있습니다.' },
+    { name: '미디어존 · 셀프 스튜디오', tag: '디지털 학습 환경',
+      why: '영상 과제, 콘텐츠 제작, 포트폴리오 준비에 필요한 촬영 공간과 장비가 부족해 외부 시설을 이용해야 합니다.',
+      what: '미디어예술학부 외 타 학과 학생도 쓸 수 있는 <b>예약제 미디어 제작 전용 공간</b>을 캠퍼스 안에 마련합니다.',
+      effect: ['콘텐츠 제작 능력 향상', '개인·팀 프로젝트 질 향상', '콘텐츠 제작 기반 마련', '1인 미디어 교육 활성화'],
+      how: '계원예술대학교, 청강문화산업대학교 등에서 셀프 스튜디오를 운영 중이며, 비교적 적은 공간으로도 구축할 수 있습니다.' }
+  ];
+  const fuTabs = document.getElementById('fuTabs'), fuPanel = document.getElementById('fuPanel');
+  fuTabs.innerHTML = FUTURE.map((f, i) => `<button type="button" role="tab" id="fuTab${i}" aria-controls="fuPanel"><i>${String(i + 1).padStart(2, '0')}</i><b>${f.name}</b><small>${f.tag}</small></button>`).join('');
+  const fuButtons = [...fuTabs.children];
+  const fuShow = i => {
+    const f = FUTURE[i];
+    fuButtons.forEach((b, k) => { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
+    fuPanel.setAttribute('aria-labelledby', `fuTab${i}`);
+    fuPanel.innerHTML = `<h4>${f.name}</h4>
+      <div><span class="fu-t">제안 배경</span><p>${f.why}</p></div>
+      <div><span class="fu-t">제안 내용</span><p>${f.what}</p></div>
+      <div><span class="fu-t">기대 효과</span><ul>${f.effect.map(e => `<li>${e}</li>`).join('')}</ul></div>
+      <div><span class="fu-t">실현 가능성</span><p>${f.how}</p></div>`;
+  };
+  fuShow(0);
+  fuTabs.addEventListener('click', e => { const b = e.target.closest('button'); if (b) fuShow(fuButtons.indexOf(b)); });
+  fuTabs.addEventListener('keydown', e => {
+    const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+    if (!step) return;
+    e.preventDefault();
+    const next = (fuButtons.indexOf(document.activeElement) + step + FUTURE.length) % FUTURE.length;
+    fuShow(next); fuButtons[next].focus();
+  });
+
   // lightbox
-  const lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
+  const lb =document.getElementById('lb'), lbImg = lb.querySelector('img');
   document.addEventListener('click', e => {
     const btn = e.target.closest('[data-zoom-src]');
     const z = e.target.closest('[data-zoom]');
