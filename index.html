@@ -308,7 +308,26 @@
   @media (max-width: 520px) { .mk-funnel, .mk-target { grid-template-columns: 1fr; } }
 
   /* ---------- awards ---------- */
-  .awards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .awards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .awards > .award { grid-column: span 3; }
+  .awards > .award.lead { grid-column: span 2; }
+  .awards > .award:not(.lead) .ph { aspect-ratio: 21 / 9; }
+  /* contest proposal, shown beside its award card */
+  .fu { grid-column: span 4; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+  .fu-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+  .fu-head h4 { font-size: 20px; font-weight: 800; letter-spacing: -.02em; }
+  .fu-head span { font-size: 14px; color: var(--muted); }
+  .fu-strip { flex: 1; display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; scrollbar-width: thin; scrollbar-color: var(--ink) transparent; }
+  .fu-card { flex: 0 0 clamp(250px, 23vw, 310px); scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 6px; padding: 20px; }
+  .fu-card .no { font: 500 12px/1.4 var(--mono); color: var(--muted); }
+  .fu-card .no em { font-family: var(--sans); font-style: normal; }
+  .fu-card h5 { font-size: 18px; font-weight: 800; letter-spacing: -.02em; line-height: 1.3; }
+  .fu-card dl { display: grid; gap: 10px; }
+  .fu-card dt { font-size: 12px; font-weight: 700; color: var(--muted); }
+  .fu-card dd { font-size: 14px; line-height: 1.55; text-wrap: pretty; }
+  .fu-card ul { list-style: none; display: grid; gap: 6px; font-size: 14px; }
+  .fu-card li::before { content: '→ '; color: var(--muted); }
+  .fu-card p { font-size: 14px; line-height: 1.55; }
   .award { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; transition: border-color .3s ease, transform .3s ease; }
   .award:hover { border-color: var(--accent); transform: translateY(-4px); }
   .award .ph { aspect-ratio: 16 / 9; background: var(--bg-2); overflow: hidden; }
@@ -342,42 +361,12 @@
   .role .tag.live { border-color: var(--ink); background: var(--accent); color: var(--ink); }
   .role h4 { font-size: 20px; font-weight: 800; letter-spacing: -.02em; }
   .role p { font-size: 14px; color: var(--muted); }
-  @media (max-width: 900px) { .awards, .leader { grid-template-columns: 1fr; } .mt .body { grid-template-columns: 1fr; } }
-
-  /* contest proposal: SU The Future */
-  .fu { --fg: #F2F2EE; --muted: #A5A59E; --line: rgba(255,255,255,.16); --hi: var(--accent); background: var(--ink); color: var(--fg); border-radius: 8px; padding: clamp(24px, 4.5vw, 60px); margin-top: clamp(40px, 6vw, 72px); scroll-margin-top: 90px; }
-  .fu-head { display: grid; gap: 14px; padding-bottom: clamp(24px, 3vw, 36px); border-bottom: 1px solid var(--line); }
-  .fu-head .badge { justify-self: start; }
-  .fu-head h3 { font-size: clamp(32px, 4.8vw, 72px); font-weight: 800; letter-spacing: -.04em; line-height: 1.12; }
-  .fu-head h3 em { font-style: normal; color: var(--accent); }
-  .fu-head p { color: var(--muted); font-size: 16px; }
-  .fu-brief { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 4vw, 56px); padding: clamp(24px, 3vw, 36px) 0; }
-  .fu-t { display: block; font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
-  .fu-brief p { font-size: 17px; line-height: 1.6; }
-  .fu-dirs { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
-  .fu-dirs li { border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 14px; font-weight: 600; line-height: 1.2; }
-  .fu-body { display: grid; grid-template-columns: minmax(250px, 340px) 1fr; gap: clamp(16px, 3vw, 40px); align-items: start; }
-  .fu-tabs { display: grid; gap: 6px; }
-  .fu-tabs button { display: grid; grid-template-columns: 30px 1fr; gap: 2px 8px; width: 100%; text-align: left; font: inherit; color: var(--fg); background: rgba(255,255,255,.05); border: 1px solid transparent; border-radius: 8px; padding: 13px 14px; cursor: pointer; transition: background .2s ease, border-color .2s ease; }
-  .fu-tabs button:hover { border-color: var(--accent); }
-  .fu-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .fu-tabs i { grid-row: span 2; font: 500 13px/1.5 var(--mono); color: var(--accent); }
-  .fu-tabs b { font-size: 15px; font-weight: 700; line-height: 1.35; }
-  .fu-tabs small { font-size: 12px; line-height: 1.3; color: var(--muted); }
-  .fu-tabs button[aria-selected="true"] { background: var(--accent); color: var(--ink); }
-  .fu-tabs button[aria-selected="true"] i, .fu-tabs button[aria-selected="true"] small { color: var(--ink); }
-  .fu-panel { background: #171717; border-radius: 8px; padding: clamp(20px, 3vw, 36px); outline: none; }
-  .fu-panel h4 { font-size: clamp(23px, 2.4vw, 34px); font-weight: 800; letter-spacing: -.03em; line-height: 1.25; margin-bottom: 8px; }
-  .fu-panel > div { display: grid; grid-template-columns: 96px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
-  .fu-panel > h4 + div { border-top: 0; }
-  .fu-panel .fu-t { margin: 3px 0 0; }
-  .fu-panel p, .fu-panel li { font-size: 16px; line-height: 1.6; }
-  .fu-panel p b { color: var(--accent); font-weight: 700; }
-  .fu-panel ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
-  .fu-panel li::before { content: '→ '; color: var(--accent); }
-  .fu-end { margin-top: clamp(24px, 3vw, 36px); padding-top: 22px; border-top: 1px solid var(--line); font-size: clamp(17px, 1.6vw, 21px); font-weight: 700; line-height: 1.5; }
-  @media (max-width: 900px) { .fu-brief, .fu-body { grid-template-columns: 1fr; } .fu-tabs { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 560px) { .fu-tabs { grid-template-columns: 1fr; } .fu-panel > div { grid-template-columns: 1fr; gap: 6px; } .fu-panel ul { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) {
+    .awards, .leader { grid-template-columns: 1fr; } .mt .body { grid-template-columns: 1fr; }
+    .awards > .award, .awards > .award.lead, .fu { grid-column: auto; }
+    .awards > .award:not(.lead) .ph { aspect-ratio: 16 / 9; }
+    .fu-card { flex-basis: min(78vw, 300px); }
+  }
 
   /* ---------- design work ---------- */
   .bridge { border-top: 1px solid var(--line); margin-bottom: clamp(48px, 7vw, 96px); }
@@ -805,16 +794,23 @@
     </div>
 
     <div class="awards">
-      <article class="award rv" data-link="future">
+      <article class="award lead rv" data-link="future">
         <div class="ph"><img src="assets/img/award-future.jpg" alt="개교 50주년 SU 더퓨처 공모전 포스터"></div>
         <div class="body">
           <span class="badge">우수상 · 2025.06</span>
           <h4>개교 50주년 더퓨처 공모전</h4>
           <p>학교 발전 방향 기획안</p>
           <ul><li>학교 종합정보시스템 모바일화 기획</li><li>미디어존 등 스튜디오 설치 기획</li></ul>
-          <a class="pill go" href="#future">기획안 자세히 보기 ↓</a>
         </div>
       </article>
+      <div class="fu rv" id="future">
+        <div class="fu-head"><h4>수상 기획안</h4><span>서일의 다음 100년을 위한 6가지 제안</span></div>
+        <div class="fu-strip" id="fuStrip" tabindex="0" aria-label="공모전 기획안 카드"></div>
+        <div class="mk-deck-ctrl">
+          <span class="mk-hint">옆으로 넘겨서 볼 수 있어요</span>
+          <span><button type="button" class="pill" id="fuPrev" aria-label="이전 제안">←</button> <button type="button" class="pill" id="fuNext" aria-label="다음 제안">→</button></span>
+        </div>
+      </div>
       <article class="award rv" data-link="booth">
         <div class="ph"><img src="assets/img/award-booth.jpg" alt="용마대동제 학과 부스 운영 모습"></div>
         <div class="body">
@@ -861,29 +857,6 @@
         </article>
       </div>
     </div>
-
-    <article class="fu rv" id="future">
-      <header class="fu-head">
-        <span class="badge">우수상 · 2025.06</span>
-        <h3>서일의 다음 100년을 위한<br><em>6가지 제안</em></h3>
-        <p>개교 50주년 SU 더퓨처 공모전 · 서일대학교의 미래를 위한 아이디어 제안</p>
-      </header>
-      <div class="fu-brief">
-        <div>
-          <span class="fu-t">문제 인식</span>
-          <p>서일대학교는 다양한 발전을 이뤄 왔지만, 학생 중심 교육 환경과 글로벌 역량 강화 측면에는 개선의 여지가 있습니다.</p>
-        </div>
-        <div>
-          <span class="fu-t">제안 방향</span>
-          <ul class="fu-dirs"><li>학생 중심 스마트 캠퍼스</li><li>교육 자율성 확대</li><li>디지털 학습 환경 개선</li><li>글로벌 인재 양성</li></ul>
-        </div>
-      </div>
-      <div class="fu-body">
-        <div class="fu-tabs" id="fuTabs" role="tablist" aria-label="6가지 제안"></div>
-        <div class="fu-panel" id="fuPanel" role="tabpanel" tabindex="0"></div>
-      </div>
-      <p class="fu-end">단순한 아이디어에 그치지 않고, 학생이 중심이 되는 서일의 100년을 설계하는 밑거름이 되도록 실현 가능한 방안으로 구성했습니다.</p>
-    </article>
   </div>
 </section>
 
@@ -1332,7 +1305,7 @@
   document.getElementById('mkPrev').addEventListener('click', () => mkStep(-1));
   document.getElementById('mkNext').addEventListener('click', () => mkStep(1));
 
-  // contest proposal: one tab per idea
+  // contest proposal: overview card, then one card per idea
   const FUTURE = [
     { name: '전공 수강신청 자율화', tag: '교육 자율성',
       why: '학과가 전공 시간표를 일괄 편성해, 특정 교수님의 수업을 반복해서 듣거나 학습 스타일에 맞지 않는 강의도 필수로 수강해야 합니다.',
@@ -1365,28 +1338,6 @@
       effect: ['콘텐츠 제작 능력 향상', '개인·팀 프로젝트 질 향상', '콘텐츠 제작 기반 마련', '1인 미디어 교육 활성화'],
       how: '계원예술대학교, 청강문화산업대학교 등에서 셀프 스튜디오를 운영 중이며, 비교적 적은 공간으로도 구축할 수 있습니다.' }
   ];
-  const fuTabs = document.getElementById('fuTabs'), fuPanel = document.getElementById('fuPanel');
-  fuTabs.innerHTML = FUTURE.map((f, i) => `<button type="button" role="tab" id="fuTab${i}" aria-controls="fuPanel"><i>${String(i + 1).padStart(2, '0')}</i><b>${f.name}</b><small>${f.tag}</small></button>`).join('');
-  const fuButtons = [...fuTabs.children];
-  const fuShow = i => {
-    const f = FUTURE[i];
-    fuButtons.forEach((b, k) => { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
-    fuPanel.setAttribute('aria-labelledby', `fuTab${i}`);
-    fuPanel.innerHTML = `<h4>${f.name}</h4>
-      <div><span class="fu-t">제안 배경</span><p>${f.why}</p></div>
-      <div><span class="fu-t">제안 내용</span><p>${f.what}</p></div>
-      <div><span class="fu-t">기대 효과</span><ul>${f.effect.map(e => `<li>${e}</li>`).join('')}</ul></div>
-      <div><span class="fu-t">실현 가능성</span><p>${f.how}</p></div>`;
-  };
-  fuShow(0);
-  fuTabs.addEventListener('click', e => { const b = e.target.closest('button'); if (b) fuShow(fuButtons.indexOf(b)); });
-  fuTabs.addEventListener('keydown', e => {
-    const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
-    if (!step) return;
-    e.preventDefault();
-    const next = (fuButtons.indexOf(document.activeElement) + step + FUTURE.length) % FUTURE.length;
-    fuShow(next); fuButtons[next].focus();
-  });
 
   // lightbox
   const lb =document.getElementById('lb'), lbImg = lb.querySelector('img');
